@@ -1,14 +1,15 @@
 #!/bin/bash
 FILES='./pdb_structures/*'
+echo -n > final_val.txt
 for f1 in $FILES
 do
 	for f2 in $FILES
 
 	do
-		echo "Processing $f1 file..."
 		tmalign $f1 $f2 > out.txt
 		awk '/TM-score=/'  out.txt | awk '{print $2}' > outer.txt
-		awk -F"#" '{print $1, $0}' outer.txt  | sort -nr | head -1 > max.txt
-		cat max.txt > final_val.txt
+		MAX=`awk -F"#" '{print $0}' outer.txt | sort -nr | head -1`
+		echo -e ${MAX}
+		echo -e ${MAX} >> final_val.npy
 	done
 done
