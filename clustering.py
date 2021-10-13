@@ -1,11 +1,12 @@
 from scipy.cluster.hierarchy import dendrogram, linkage
 from matplotlib import pyplot as plt
-from getopt import getopt
+import getopt
 import sys
 import pandas as pd
 import subprocess
 
 def hierarchicalCluster(simMat, method):
+    print(method)
     hierarchy = linkage(simMat,method)
     dendrogram(hierarchy,orientation="left",labels=simMat.columns)
     plt.show()
@@ -20,7 +21,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt(sys.argv[1:],"imh",['input','method','help'])
+        opts, args = getopt.getopt(sys.argv[1:],"i:m:h:",["input","method","help"])
     except getopt.GetoptError as err:
         print(str(err))
         usage()
@@ -34,6 +35,8 @@ def main():
             pdbFiles = arg
         elif opt in ['-m',"--method"]:
             method = arg
+        elif opt in ['-h','--help']:
+            usage()
         else:
             usage()
             sys.exit(2)
