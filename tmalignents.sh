@@ -1,6 +1,6 @@
 #!/bin/bash
 FILES='./pdb_structures/*'
-echo -n > final_val.csv
+ls -1 './pdb_structures' | sed -e 's/\.pdb$//' | xargs | sed -e 's/ /,/g' > final_val.csv
 for f1 in $FILES
 do
 	line=""
