@@ -10,6 +10,6 @@ do
 		awk '/TM-score=/'  out.txt | awk '{print $2}' > outer.txt
 		MAX=`awk -F"#" '{print $0}' outer.txt | sort -nr | head -1`
 		echo -e ${MAX}
-		echo -e ${MAX} >> final_val.npy
+		echo -e ${MAX} >> final_val.txt
 	done
 done
