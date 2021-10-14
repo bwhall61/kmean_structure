@@ -2,6 +2,7 @@ This program uses clustering algorithms to cluster protein structures according 
 pairwise TM-scores. It currently has options to use spectral and hierarchical clustering
 algorithms.
 
+
 To run: python clustering.py -i Folder containing all PDB files, -m method, -n number of clusters
 
 Methods: Spectral: spectral
@@ -21,6 +22,16 @@ Defaults: numStructures: 24
 
 Note that if you run this script twice it will not add additional pdB files to the
 folder if there are already numStructures in the folder.
+
+Dependencies:
+This code requires tmalign to be installed. These instructions assume that you have the python package manager conda installed.
+
+run the following code via command line:
+conda install -c bioconda tmalign
+
+
+
+
 
 References:
 [1] Daniel Mullner, “Modern hierarchical, agglomerative clustering algorithms”, arXiv:1109.2378v1.
