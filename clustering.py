@@ -28,7 +28,7 @@ def genSimilarityMatrix(pdbFiles):
     return simMat
 
 def usage():
-    print('usage: clustering.py [-i pdbFiles_folder] [-m clustering_method] [-n nClusters][-h]')
+    print('usage: clustering.py [-i pdbFiles_folder] [-m clustering_method] [-n nClusters] [-h]')
 
 # Command line arguments: -i Folder containing all PDB files, -m method*, -n number of clusters
 # Default: ./pdb_structures, ward hierarchical clustering, 2 clusters
