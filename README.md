@@ -1,4 +1,3 @@
-# kmean_structure
 This program uses clustering algorithms to cluster protein structures according to
 pairwise TM-scores. It currently has options to use spectral and hierarchical clustering
 algorithms.
