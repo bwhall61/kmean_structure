@@ -8,12 +8,12 @@ import subprocess
 
 
 def hierarchicalCluster(simMat, method):
-    '''Clusters the similarity matrix using hierarchical clustering. 
-    
+    '''Clusters the similarity matrix using hierarchical clustering.
+
     Parameters
     ----------
     simMat : Similarity matrix, hierarchical clustering method to use. See Readme for options
-    
+
     Returns
     -------
     a dendrogram of the clusters
@@ -24,7 +24,7 @@ def hierarchicalCluster(simMat, method):
 
 
 def spectralCluster(simMat,nClusters):
-    ''' Clusters the similarity matrix using spectral clustering. 
+    ''' Clusters the similarity matrix using spectral clustering.
 
     Parameters
     ----------
@@ -36,10 +36,10 @@ def spectralCluster(simMat,nClusters):
     the clustering labels assigned to each structure.
     '''
     clustering = SpectralClustering(n_clusters=nClusters,affinity='precomputed').fit(simMat)
-    return clustering.labels_
+    return list(zip(simMat.columns,clustering.labels_))
 
 def genSimilarityMatrix(pdbFiles):
-    ''' Function to obtain the similarity matrix from tmalign algorithm. 
+    ''' Function to obtain the similarity matrix from tmalign algorithm.
     Runs the bash script tmalignments.sh which saves the simialrity matrix as simMat.csv
 
     Parameters
@@ -83,7 +83,7 @@ def main():
         elif opt in ['-m',"--method"]:
             method = arg
         elif opt in ['-n','--nclusters']:
-            nClusters = arg
+            nClusters = int(arg)
         elif opt in ['-h','--help']:
             usage()
         else:
@@ -93,7 +93,7 @@ def main():
     simMat = genSimilarityMatrix(pdbFiles)
 
     if(method == "spectral"):
-        spectralCluster(simMat,nClusters)
+        print(spectralCluster(simMat,nClusters))
     else:
         hierarchicalCluster(simMat,method)
 
