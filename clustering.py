@@ -49,7 +49,7 @@ def main():
             sys.exit(2)
 
     simMat = genSimilarityMatrix(pdbFiles)
-    
+
     if(method == "spectral"):
         spectralCluster(simMat,nClusters)
     else:
