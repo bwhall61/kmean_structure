@@ -18,7 +18,7 @@ the algorithms.
 
 To run: bash genRandomStructures.sh numStructures
 
-Defaults: numStructures: 50
+Defaults: numStructures: 24
 
 Note that if you run this script twice it will not add additional pdB files to the
 folder if there are already numStructures in the folder.
