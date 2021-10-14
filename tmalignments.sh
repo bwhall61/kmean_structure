@@ -1,10 +1,10 @@
 #!/bin/bash
 
-"""
+'''
 This script computes the tmalign score for all pairs of proteins contained in a directory (of type PDB).
 The input is the folder of PDB files.
 The output is a similarity matrix of filetype csv.
-"""
+'''
 
 PDBFILES="$1/*"
 ls -1 "$1" | sed -e 's/\.pdb$//' | xargs | sed -e 's/ /,/g' > simMat.csv

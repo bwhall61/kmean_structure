@@ -6,23 +6,52 @@ import sys
 import pandas as pd
 import subprocess
 
-# Input: Similarity matrix, hierarchical clustering method to use. See Readme for options
-# Output: Displays a dendrogram of the clusters
+
 def hierarchicalCluster(simMat, method):
+    '''Clusters the similarity matrix using hierarchical clustering. 
+    
+    Parameters
+    ----------
+    simMat : Similarity matrix, hierarchical clustering method to use. See Readme for options
+    
+    Returns
+    -------
+    a dendrogram of the clusters
+    '''
     hierarchy = linkage(simMat,method)
     dendrogram(hierarchy,orientation="left",labels=simMat.columns)
     plt.show()
 
-# Input: Similarity matrix, number of clusters to use
-# Output:
-def spectralCluster(simMat,nClusters):
-    clustering = SpectralClustering(n_clusters=nClusters,affinity='precomputed').fit(simMat)
-    print(clustering.labels_)
 
-# Input: Path to the folder containing PDB files to compare
-# Output: Simialarity matrix with pariwise TM-scores from TMalign
-# Runs the bash script tmalignments.sh which saves the simialrity matrix as simMat.csv
+def spectralCluster(simMat,nClusters):
+    ''' Clusters the similarity matrix using spectral clustering. 
+
+    Parameters
+    ----------
+    simMat : Similarity matrix, hierarchical clustering method to use. See Readme for options
+    nClusters : number of clusters to use
+
+    Returns
+    -------
+    the clustering labels assigned to each structure.
+    '''
+    clustering = SpectralClustering(n_clusters=nClusters,affinity='precomputed').fit(simMat)
+    return clustering.labels_
+
 def genSimilarityMatrix(pdbFiles):
+    ''' Function to obtain the similarity matrix from tmalign algorithm. 
+    Runs the bash script tmalignments.sh which saves the simialrity matrix as simMat.csv
+
+    Parameters
+    ----------
+    pdbFiles : Path to the folder containing PDB files to compare
+
+    Returns
+    -------
+    a simialarity matrix with pariwise TM-scores from TMalign.
+
+
+    '''
     subprocess.call(["./tmalignments.sh",pdbFiles])
     simMat = pd.read_csv('simMat.csv')
     return simMat
@@ -30,10 +59,13 @@ def genSimilarityMatrix(pdbFiles):
 def usage():
     print('usage: clustering.py [-i pdbFiles_folder] [-m clustering_method] [-n nClusters] [-h]')
 
-# Command line arguments: -i Folder containing all PDB files, -m method*, -n number of clusters
-# Default: ./pdb_structures, ward hierarchical clustering, 2 clusters
-# *spectral for spectral clustering, otherwise the algorithm for hierarchical clustering
 def main():
+    '''
+    To execute script via command line
+    Command line arguments: -i Folder containing all PDB files, -m method*, -n number of clusters
+    Default: ./pdb_structures, ward hierarchical clustering, 2 clusters
+    *spectral for spectral clustering, otherwise the algorithm for hierarchical clustering
+    '''
     try:
         opts, args = getopt.getopt(sys.argv[1:],"i:m:n:h",["input","method","nclusters","help"])
     except getopt.GetoptError as err:
