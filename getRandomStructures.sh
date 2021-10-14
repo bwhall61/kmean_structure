@@ -1,6 +1,6 @@
 #!/bin/bash
-mkdir -p ./random_pdb_files
-cd ./random_pdb_files
+mkdir -p ./random_pdb_structures
+cd ./random_pdb_structures
 numStructures=50
 while [ $(ls | wc -l) -lt $numStructures ]
 do
