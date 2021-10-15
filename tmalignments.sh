@@ -10,15 +10,15 @@ Y. Zhang, J. Skolnick, TM-align: A protein structure alignment algorithm based o
 COMMENT
 
 PDBFILES="$1/*"
-ls -1 "$1" | sed -e 's/\.pdb$//' | xargs | sed -e 's/ /,/g' > simMat.csv
+ls -1 "$1" | sed -e 's/\.pdb$//' | xargs | sed -e 's/ /,/g' > simMat.csv # Set up CSV file with PDB names
 for f1 in $PDBFILES
 do
 	line=""
 	for f2 in $PDBFILES
 	do
-		SC1=`tmalign $f1 $f2 | awk '/TM-score=/'| awk '{print $2}' | head -1`
-		SC2=`tmalign $f1 $f2 | awk '/TM-score=/'| awk '{print $2}' | tail -1`
-		AVG=$(echo "scale=5;($SC1 + $SC2) / 2" | bc)
+		SC1=`tmalign $f1 $f2 | awk '/TM-score=/'| awk '{print $2}' | head -1` #TM-score normalized to protein 1
+		SC2=`tmalign $f1 $f2 | awk '/TM-score=/'| awk '{print $2}' | tail -1` #TM-score normalized to protein 2
+		AVG=$(echo "scale=5;($SC1 + $SC2) / 2" | bc) #avg TM-score
 		line="$line$AVG,"
 	done
 	printf "${line%?}\n" >> simMat.csv
