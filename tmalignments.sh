@@ -16,8 +16,10 @@ do
 	line=""
 	for f2 in $PDBFILES
 	do
-		MAX=`tmalign $f1 $f2 | awk '/TM-score=/'| awk '{print $2}' | sort -nr | head -1`
-		line="$line$MAX,"
+		SC1=`tmalign $f1 $f2 | awk '/TM-score=/'| awk '{print $2}' | head -1`
+		SC2=`tmalign $f1 $f2 | awk '/TM-score=/'| awk '{print $2}' | tail -1`
+		AVG=$(echo "scale=5;($SC1 + $SC2) / 2" | bc)
+		line="$line$AVG,"
 	done
 	printf "${line%?}\n" >> simMat.csv
 done
