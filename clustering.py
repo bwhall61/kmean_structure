@@ -13,6 +13,7 @@ def hierarchicalCluster(simMat, method):
     Parameters
     ----------
     simMat : Similarity matrix, hierarchical clustering method to use. See Readme for options
+    method : linkage method to compute distance between clusters
 
     Returns
     -------
